@@ -40,28 +40,24 @@ export class ProductListComponent {
 
   private productService = inject(ProductService)
 
-  products: Product[];
+  // products: Product[];
 
-  constructor() {
-    this
-    .productService
-    .products$
-    .pipe(
-      takeUntilDestroyed()
-    )
-    .subscribe(
-      {
-        next: data => this.products = data,
-        error: err => console.error(err.message)
-      }
-     )
-  }
-
+  // constructor() {
+  //   this
+  //   .productService
+  //   .products$
+  //   .pipe(
+  //     takeUntilDestroyed()
+  //   )
+  //   .subscribe(
+  //     {
+  //       next: data => this.products = data,
+  //       error: err => console.error(err.message)
+  //     }
+  //    )
+  // }
 
   products$: Observable<Product[]> = this.productService.products$
-
-
-
 
   onSelect(product: Product) {
     this.selectedProduct = product
