@@ -16,6 +16,11 @@ export class ProductService {
     this.initProducts()
   }
 
+  insertProduct(newProduct: Product): Observable<Product> {
+    newProduct.modifiedDate = new Date();
+    return this.http.post<Product>(this.baseUrl, newProduct);
+  }
+
   getProductById(id: number): Observable<Product> {
      return this
             .products$
@@ -25,9 +30,11 @@ export class ProductService {
   }
 
   initProducts(): void {
+    let url:string = this.baseUrl + '?_sort=modifiedDate&_order=desc';
+
     this.products$ = this
                         .http
-                        .get<Product[]>(this.baseUrl)
+                        .get<Product[]>(url)
                         .pipe(
                           tap(console.table),
                           shareReplay()

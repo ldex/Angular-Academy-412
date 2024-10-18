@@ -5,6 +5,7 @@ import { AdminComponent } from './shared/admin.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ErrorComponent } from './shared/error.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { ProductInsertComponent } from './products/product-insert/product-insert.component';
 
 export const routes: Routes = [
     { path: '', redirectTo:'/home', pathMatch: 'full' },
@@ -12,7 +13,10 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'admin', component: AdminComponent },
     { path: 'products', children: [
-        { path: '', component: ProductListComponent },
+        { path: '', loadComponent: () => import('./products/product-list/product-list.component')
+                                            .then(r => r.ProductListComponent)
+        },
+        { path: 'insert', component: ProductInsertComponent },
         { path: ':id', component: ProductDetailComponent }
     ]},
     { path: '**', component: ErrorComponent }
