@@ -5,6 +5,7 @@ import { ProductDetailComponent } from '../product-detail/product-detail.compone
 import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -39,6 +40,7 @@ export class ProductListComponent {
   }
 
   private productService = inject(ProductService)
+  private router = inject(Router)
 
   // products: Product[];
 
@@ -61,5 +63,6 @@ export class ProductListComponent {
 
   onSelect(product: Product) {
     this.selectedProduct = product
+    this.router.navigateByUrl('/products/' + product.id)
   }
 }
